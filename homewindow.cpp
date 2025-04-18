@@ -2,6 +2,7 @@
 #include "ui_homewindow.h"
 
 #include <qdebug.h>
+#include <QMessageBox>
 
 #include <opencv2/opencv.hpp>
 
@@ -26,6 +27,7 @@ void HomeWindow::startVideoFeed()
     // Open webcam once and check
     if (!m_cap.open(0)) {
         qDebug() << "Error: Cannot open webcam";
+        QMessageBox::warning(this, "Camera Error", "Failed to open camera!");
         return;
     }
 

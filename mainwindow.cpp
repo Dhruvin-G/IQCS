@@ -91,7 +91,6 @@ void MainWindow::reportButtonClicked(){
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete loginwindow;
     header->deleteLater();
     report->deleteLater();
     home->deleteLater();

@@ -1,0 +1,24 @@
+# Qt user session
+*.pro.user
+*.user
+
+# Compiled object files
+*.o
+*.obj
+
+# Build folders
+build-*/
+debug/
+release/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Qt Creator settings
+*.autosave
+*.creator*
+
+# System files
+.DS_Store
+Thumbs.db

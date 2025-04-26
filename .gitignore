@@ -1,5 +1,6 @@
 # Qt user session
 *.pro.user
+*.pro.user.*
 *.user
 
 # Compiled object files

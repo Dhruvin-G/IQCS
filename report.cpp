@@ -3,6 +3,9 @@
 #include<QMessageBox>
 #include <QtCharts>
 #include<hpdf.h>
+
+#include "jsonhandler.h"
+
 Report::Report(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Report)
@@ -10,7 +13,10 @@ Report::Report(QWidget *parent)
     ui->setupUi(this);
     ui->dateEdit->setDate(QDate::currentDate());
     ui->dateEdit->setMaximumDate(QDate::currentDate());
+
     setPieChart();
+    fetchSessionData();
+
     connect(ui->pushButton, &QPushButton::clicked, this, &Report::on_exportPDFButtonClicked);
 }
 void Report::on_exportPDFButtonClicked(){
@@ -86,6 +92,37 @@ void Report::setPieChart()
 
     ui->gridLayout->replaceWidget(ui->widget,chartView);
     ui->widget->deleteLater();
+}
+
+void Report::fetchSessionData()
+{
+    JsonHandler handler;
+    const std::string filePath = "/home/dhruvin/qt_projects/IQCS/reportData.json";  // Update the path if needed
+
+    json data = handler.loadData(filePath);
+
+    QString qdate = QDate::currentDate().toString("dd-MM-yyyy");
+    std::string dateKey = qdate.toStdString();
+
+    int totalDefected = 0;
+    int totalUndefected = 0;
+
+    if (data.contains(dateKey)) {
+        const auto& shifts = data[dateKey];
+
+        for (const auto& shift : shifts) {
+            const auto& shiftObj = shift.begin().value();
+            totalDefected += shiftObj.value("Defected", 0);
+            totalUndefected += shiftObj.value("Undefected", 0);
+        }
+
+        ui->label_2->setText(QString::number(totalUndefected));
+        ui->label_4->setText(QString::number(totalDefected));
+    } else {
+        qDebug() << "No data found for today.";
+        ui->label_2->setText("0");
+        ui->label_4->setText("0");
+    }
 }
 Report::~Report()
 {

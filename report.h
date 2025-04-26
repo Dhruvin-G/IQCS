@@ -14,6 +14,7 @@ class Report : public QWidget
 public:
     explicit Report(QWidget *parent = nullptr);
     ~Report();
+    void fetchSessionData();
 private slots:
     void on_exportPDFButtonClicked();
 private:

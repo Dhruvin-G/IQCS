@@ -5,6 +5,11 @@
 #include <thread>
 
 #include <opencv2/opencv.hpp>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
+#include "jsonhandler.h"
+
 
 namespace Ui {
 class HomeWindow;
@@ -20,6 +25,7 @@ public:
     void startVideoFeed();
     void stopVideoFeed();
     void showNoVideoFeed();
+    void saveSeesionData();
 
     std::thread m_cameraCaptureThread;
     cv::VideoCapture m_cap;

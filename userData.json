@@ -1,27 +1,10 @@
 {
-"user":[
-{
-"id": "abc123",
-"password" : "abc@123#"
-},
-{
-"id": "def123",
-"password" : "abc@123#"
-},
-{
-"id": "ghi123",
-"password" : "abc@123#"
-},
-{
-"id": "jkl123",
-"password" : "abc@123#"
-},
-{
-"id": "mno123",
-"password" : "abc@123#"
-},
-{
-"id": "pqr123",
-"password" : "abc@123#"
-}],
+  "user": [
+    { "id": "abc123", "password": "abc@123#" },
+    { "id": "def123", "password": "abc@123#" },
+    { "id": "ghi123", "password": "abc@123#" },
+    { "id": "jkl123", "password": "abc@123#" },
+    { "id": "mno123", "password": "abc@123#" },
+    { "id": "pqr123", "password": "abc@123#" }
+  ]
 }

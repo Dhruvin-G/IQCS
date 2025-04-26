@@ -17,49 +17,113 @@ MainWindow::MainWindow(QWidget *parent)
 //    this->setStyleSheet("background-color: purple");
     connect(loginwindow, &LoginWindow::loginButtonSignalEmit, this, &MainWindow::loginButtonClicked);
 }
-void MainWindow::loginButtonClicked(QString id, QString password){
 
-        // ID Validation
-        if (id.isEmpty()) {
-            QMessageBox::warning(this, "Input Error", "ID field cannot be empty.");
-            return;
-        }
-        // Password Validation
-        if (password.isEmpty()) {
-            QMessageBox::warning(this, "Input Error", "Password field cannot be empty.");
-            return;
-        }
-        if (id != "abc123") {
-            QMessageBox::warning(this, "Input Error", "ID must contain only letters and numbers.");
-            return;
-        }
-        if (password != "abc@2023") {
-            QMessageBox::warning(this, "Input Error", "Password must be at least 9 characters long and include one lowercase, one uppercase, one number, and one special character (!@&%#$^*).");
-            return;
-        }
+void MainWindow::loginButtonClicked(QString id, QString password) {
+    // ID Validation
+    if (id.isEmpty()) {
+        QMessageBox::warning(this, "Input Error", "ID field cannot be empty.");
+        return;
+    }
+    // Password Validation
+    if (password.isEmpty()) {
+        QMessageBox::warning(this, "Input Error", "Password field cannot be empty.");
+        return;
+    }
+
+    // Load user JSON
+    JsonHandler handler;
+    const std::string filePath = "/home/dhruvin/qt_projects/IQCS/userData.json"; // 🔁 Update this path
+    json userData = handler.loadData(filePath);
+    qDebug() << QString::fromStdString(userData.dump());
 
 
-        else{
-            verticalLayout = new QVBoxLayout(this);
-            header = new Header(this);
-            home = new HomeWindow(this);
-            this->setStyleSheet("background-color:white");
-            report = new Report(this);
-            report->hide();
-            header->setAttribute(Qt::WA_StyledBackground, true);
-            header->enbleHomeButton(false);
+    bool matchFound = false;
 
-            verticalLayout->addWidget(header);
-            verticalLayout->addWidget(home);
-            ui->horizontalLayout->addLayout(verticalLayout);
+    if (userData.contains("user")) {
+        for (const auto& user : userData["user"]) {
+            std::string storedId = user.value("id", "");
+            std::string storedPass = user.value("password", "");
 
-            connect(header, &Header::logoutButtonClickedSignal, this, &MainWindow::logoutButtonClicked);
-            connect(header, &Header::closeButtonClickedSignal, this, &MainWindow::closeButtonClicked);
-            connect(header, &Header::reportButtonClickedSignal, this, &MainWindow::reportButtonClicked);
-            connect(header, &Header::homeButtonClickedSignal, this, &MainWindow::homeButtonClicked);
+            if (storedId == id.toStdString() && storedPass == password.toStdString()) {
+                matchFound = true;
+                break;
+            }
         }
+    }
+
+    if (!matchFound) {
+        QMessageBox::warning(this, "Login Failed", "Invalid ID or Password.");
+        return;
+    }
+
+    // ✅ Proceed to load the main window (same as your current implementation)
+    verticalLayout = new QVBoxLayout(this);
+    header = new Header(this);
+    home = new HomeWindow(this);
+    this->setStyleSheet("background-color:white");
+    report = new Report(this);
+    report->hide();
+    header->setAttribute(Qt::WA_StyledBackground, true);
+    header->enbleHomeButton(false);
+
+    verticalLayout->addWidget(header);
+    verticalLayout->addWidget(home);
+    ui->horizontalLayout->addLayout(verticalLayout);
+
+    connect(header, &Header::logoutButtonClickedSignal, this, &MainWindow::logoutButtonClicked);
+    connect(header, &Header::closeButtonClickedSignal, this, &MainWindow::closeButtonClicked);
+    connect(header, &Header::reportButtonClickedSignal, this, &MainWindow::reportButtonClicked);
+    connect(header, &Header::homeButtonClickedSignal, this, &MainWindow::homeButtonClicked);
+
     loginwindow->deleteLater();
 }
+
+
+//void MainWindow::loginButtonClicked(QString id, QString password){
+
+//        // ID Validation
+//        if (id.isEmpty()) {
+//            QMessageBox::warning(this, "Input Error", "ID field cannot be empty.");
+//            return;
+//        }
+//        // Password Validation
+//        if (password.isEmpty()) {
+//            QMessageBox::warning(this, "Input Error", "Password field cannot be empty.");
+//            return;
+//        }
+//        if (id != "abc123") {
+//            QMessageBox::warning(this, "Input Error", "ID must contain only letters and numbers.");
+//            return;
+//        }
+//        if (password != "abc@2023") {
+//            QMessageBox::warning(this, "Input Error", "Password must be at least 9 characters long and include one lowercase, one uppercase, one number, and one special character (!@&%#$^*).");
+//            return;
+//        }
+
+
+//        else{
+//            verticalLayout = new QVBoxLayout(this);
+//            header = new Header(this);
+//            home = new HomeWindow(this);
+//            this->setStyleSheet("background-color:white");
+//            report = new Report(this);
+//            report->hide();
+//            header->setAttribute(Qt::WA_StyledBackground, true);
+//            header->enbleHomeButton(false);
+
+//            verticalLayout->addWidget(header);
+//            verticalLayout->addWidget(home);
+//            ui->horizontalLayout->addLayout(verticalLayout);
+
+//            connect(header, &Header::logoutButtonClickedSignal, this, &MainWindow::logoutButtonClicked);
+//            connect(header, &Header::closeButtonClickedSignal, this, &MainWindow::closeButtonClicked);
+//            connect(header, &Header::reportButtonClickedSignal, this, &MainWindow::reportButtonClicked);
+//            connect(header, &Header::homeButtonClickedSignal, this, &MainWindow::homeButtonClicked);
+//        }
+//    loginwindow->deleteLater();
+//}
+
+
 void MainWindow::logoutButtonClicked(){
 //    if (header) header->deleteLater();
     header->hide();
@@ -87,6 +151,7 @@ void MainWindow::closeButtonClicked(){
 
 void MainWindow::reportButtonClicked(){
     report->show();
+    report->fetchSessionData();
     home->hide();
     verticalLayout->addWidget(report);
     header->enbleHomeButton(true);

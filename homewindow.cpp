@@ -3,6 +3,7 @@
 
 #include <qdebug.h>
 #include <QMessageBox>
+#include <QDate>
 
 #include <opencv2/opencv.hpp>
 
@@ -115,6 +116,9 @@ void HomeWindow::stopVideoFeed()
 
 
     // write json data
+    saveSeesionData();
+    m_defectedCount = 0;
+    m_undefectedCount = 0;
 
 }
 
@@ -126,6 +130,48 @@ void HomeWindow::showNoVideoFeed()
     QImage qimage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
     ui->label_6->setPixmap(QPixmap::fromImage(qimage));
     ui->label_6->setScaledContents(true);
+}
+
+void HomeWindow::saveSeesionData()
+{
+    // JSON file path (update if needed)
+    const std::string filePath = "/home/dhruvin/qt_projects/IQCS/reportData.json";
+
+    JsonHandler handler;
+    json data = handler.loadData(filePath);
+
+    // Get today's date as key
+    QString qdate = QDate::currentDate().toString("dd-MM-yyyy");
+    std::string dateKey = qdate.toStdString();
+
+    // Determine next shift number
+    int nextShift = 1;
+    if (data.contains(dateKey)) {
+        const auto& shifts = data[dateKey];
+        if (!shifts.empty()) {
+            std::string lastShiftStr = shifts.back().begin().key();
+            nextShift = std::stoi(lastShiftStr) + 1;
+        }
+    }
+
+    // Create new entry for the shift
+    json shiftEntry = {
+        { std::to_string(nextShift), {
+            { "Defected", m_defectedCount },
+            { "Undefected", m_undefectedCount }
+        }}
+    };
+
+    // Append to today’s entry
+    data[dateKey].push_back(shiftEntry);
+
+    // Save back to file
+    if (handler.saveData(filePath, data)) {
+        qDebug() << "JSON updated successfully.";
+    } else {
+        qDebug() << "Failed to update JSON.";
+    }
+
 }
 
 void HomeWindow::on_pushButton_clicked()

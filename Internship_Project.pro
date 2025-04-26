@@ -12,12 +12,6 @@ CONFIG += c++17
 # Path to OpenCV installation
 OPENCV_DIR = C:/opencv/build
 
-INCLUDEPATH += /opt/GVision/include
-LIBS += -L/opt/GVision/lib -lGVision
-QMAKE_LFLAGS += -Wl,-rpath /opt/GVision/lib
-
-INCLUDEPATH += /opt/genicam/include
-LIBS += -L/opt/genicam/lib -lGCBase_gcc48_v3_4 -lGenApi_gcc48_v3_4
 
 INCLUDEPATH += /usr/include/hpdf
 LIBS += -lhpdf
@@ -34,6 +28,7 @@ LIBS += -L/usr/local/lib \
 
 SOURCES += \
     header.cpp \
+    jsonhandler.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -42,10 +37,12 @@ SOURCES += \
 
 HEADERS += \
     header.h \
+    jsonhandler.h \
     loginwindow.h \
     homewindow.h \
     mainwindow.h \
-    report.h
+    report.h \
+    json.hpp
 
 FORMS += \
     header.ui \
@@ -60,4 +57,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    data.json
+    reportData.json \
+    userData.json

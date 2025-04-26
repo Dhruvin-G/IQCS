@@ -75,6 +75,8 @@ void Report::setPieChart()
 
 
     QChart *chart = new QChart();
+
+    chart->removeAllSeries();
     chart->addSeries(series);
     chart->legend()->setVisible(false);
 

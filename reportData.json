@@ -1,0 +1,143 @@
+{
+"01-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}},],
+
+"02-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}}],
+
+"03-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"04-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"05-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"06-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"07-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"08-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"09-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"10-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"11-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : {"Defected" : 100, "Undefected" : 80}}],
+
+"12-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"13-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"14-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"15-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+"16-04-2025" : [{"1" : { "Defected" : 115, "Undefected" : 105}},
+{"2" : { "Defected" : 90, "Undefected" : 195}},
+{"3" : { "Defected" : 125, "Undefected" : 95}}],
+
+"17-04-2025" : [{"1" : { "Defected" : 130, "Undefected" : 90}},
+{"2" : { "Defected" : 85, "Undefected" : 205}},
+{"3" : { "Defected" : 110, "Undefected" : 110}}],
+
+"18-04-2025" : [{"1" : { "Defected" : 118, "Undefected" : 102}},
+{"2" : { "Defected" : 95, "Undefected" : 185}},
+{"3" : { "Defected" : 122, "Undefected" : 98}}],
+
+"19-04-2025" : [{"1" : { "Defected" : 125, "Undefected" : 95}},
+{"2" : { "Defected" : 100, "Undefected" : 180}},
+{"3" : { "Defected" : 115, "Undefected" : 105}}],
+
+"20-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"21-04-2025" : [{"1" : { "Defected" : 117, "Undefected" : 103}},
+{"2" : { "Defected" : 88, "Undefected" : 192}},
+{"3" : { "Defected" : 121, "Undefected" : 99}}],
+
+"22-04-2025" : [{"1" : { "Defected" : 123, "Undefected" : 97}},
+{"2" : { "Defected" : 93, "Undefected" : 187}},
+{"3" : { "Defected" : 119, "Undefected" : 101}}],
+
+"23-04-2025" : [{"1" : { "Defected" : 116, "Undefected" : 104}},
+{"2" : { "Defected" : 85, "Undefected" : 195}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"24-04-2025" : [{"1" : { "Defected" : 121, "Undefected" : 99}},
+{"2" : { "Defected" : 91, "Undefected" : 189}},
+{"3" : { "Defected" : 118, "Undefected" : 102}}],
+
+"25-04-2025" : [{"1" : { "Defected" : 122, "Undefected" : 98}},
+{"2" : { "Defected" : 87, "Undefected" : 193}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"26-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 90, "Undefected" : 190}},
+{"3" : { "Defected" : 119, "Undefected" : 101}}]
+{
+"16-04-2025" : [{"1" : { "Defected" : 115, "Undefected" : 105}},
+{"2" : { "Defected" : 90, "Undefected" : 195}},
+{"3" : { "Defected" : 125, "Undefected" : 95}}],
+
+"17-04-2025" : [{"1" : { "Defected" : 130, "Undefected" : 90}},
+{"2" : { "Defected" : 85, "Undefected" : 205}},
+{"3" : { "Defected" : 110, "Undefected" : 110}}],
+
+"18-04-2025" : [{"1" : { "Defected" : 118, "Undefected" : 102}},
+{"2" : { "Defected" : 95, "Undefected" : 185}},
+{"3" : { "Defected" : 122, "Undefected" : 98}}],
+
+"19-04-2025" : [{"1" : { "Defected" : 125, "Undefected" : 95}},
+{"2" : { "Defected" : 100, "Undefected" : 180}},
+{"3" : { "Defected" : 115, "Undefected" : 105}}],
+
+"20-04-2025" : [{"1" : { "Defected" : 120, "Undefected" : 100}},
+{"2" : { "Defected" : 80, "Undefected" : 200}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"21-04-2025" : [{"1" : { "Defected" : 117, "Undefected" : 103}},
+{"2" : { "Defected" : 88, "Undefected" : 192}},
+{"3" : { "Defected" : 121, "Undefected" : 99}}],
+
+"22-04-2025" : [{"1" : { "Defected" : 123, "Undefected" : 97}},
+{"2" : { "Defected" : 93, "Undefected" : 187}},
+{"3" : { "Defected" : 119, "Undefected" : 101}}],
+
+"23-04-2025" : [{"1" : { "Defected" : 116, "Undefected" : 104}},
+{"2" : { "Defected" : 85, "Undefected" : 195}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}],
+
+"24-04-2025" : [{"1" : { "Defected" : 121, "Undefected" : 99}},
+{"2" : { "Defected" : 91, "Undefected" : 189}},
+{"3" : { "Defected" : 118, "Undefected" : 102}}],
+
+"25-04-2025" : [{"1" : { "Defected" : 122, "Undefected" : 98}},
+{"2" : { "Defected" : 87, "Undefected" : 193}},
+{"3" : { "Defected" : 120, "Undefected" : 100}}]
+}
+}

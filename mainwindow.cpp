@@ -2,7 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QRegularExpression>
 #include <QMessageBox>
-
+#include<QDebug>
+#include "jsonhandler.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalLayout->addWidget(loginwindow);
     loginwindow->setStyleSheet("#verticalWidget{Border:2px solid rgb(23, 21, 59)}");
 
+//    this->setStyleSheet("background-color: purple");
     connect(loginwindow, &LoginWindow::loginButtonSignalEmit, this, &MainWindow::loginButtonClicked);
 }
 void MainWindow::loginButtonClicked(QString id, QString password){
@@ -22,24 +24,26 @@ void MainWindow::loginButtonClicked(QString id, QString password){
             QMessageBox::warning(this, "Input Error", "ID field cannot be empty.");
             return;
         }
-        if (id != "abc123") {
-            QMessageBox::warning(this, "Input Error", "ID must contain only letters and numbers.");
-            return;
-        }
-
         // Password Validation
         if (password.isEmpty()) {
             QMessageBox::warning(this, "Input Error", "Password field cannot be empty.");
+            return;
+        }
+        if (id != "abc123") {
+            QMessageBox::warning(this, "Input Error", "ID must contain only letters and numbers.");
             return;
         }
         if (password != "abc@2023") {
             QMessageBox::warning(this, "Input Error", "Password must be at least 9 characters long and include one lowercase, one uppercase, one number, and one special character (!@&%#$^*).");
             return;
         }
+
+
         else{
             verticalLayout = new QVBoxLayout(this);
             header = new Header(this);
             home = new HomeWindow(this);
+            this->setStyleSheet("background-color:white");
             report = new Report(this);
             report->hide();
             header->setAttribute(Qt::WA_StyledBackground, true);
@@ -64,6 +68,7 @@ void MainWindow::logoutButtonClicked(){
     loginwindow = new LoginWindow(this);
     ui->horizontalLayout->addWidget(loginwindow);
     loginwindow->setStyleSheet("#verticalWidget{Border:2px solid rgb(23, 21, 59)}");
+    loginwindow->setStyleSheet("background-color:purple");
 
     connect(loginwindow, &LoginWindow::loginButtonSignalEmit, this, &MainWindow::loginButtonClicked);
 
@@ -94,4 +99,5 @@ MainWindow::~MainWindow()
     header->deleteLater();
     report->deleteLater();
     home->deleteLater();
+    qDebug()<<"main destructor";
 }

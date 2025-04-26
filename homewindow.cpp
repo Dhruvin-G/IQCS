@@ -52,10 +52,16 @@ void HomeWindow::startVideoFeed()
             float mockConfidence = static_cast<float>(rand()) / RAND_MAX;
 
             if (mockConfidence > 0.6f) {
-                if (mockClassId == 0)
+                if (mockClassId == 0){
                     m_defectedCount++;
-                else
+                    ui->label_5->setText("Fail");
+
+                }
+                else{
                     m_undefectedCount++;
+                    ui->label_5->setText("Pass");
+                }
+
             }
 
             // Convert BGR to RGB
@@ -78,7 +84,7 @@ void HomeWindow::startVideoFeed()
 //                ui->labelDefected->setText(QString::number(defectedCount));
             }, Qt::QueuedConnection);
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(300));  // ~33 FPS
+//            std::this_thread::sleep_for(std::chrono::milliseconds(300));  // ~33 FPS
         }
 
         qDebug() << "Capture thread exited";
@@ -106,11 +112,16 @@ void HomeWindow::stopVideoFeed()
     // Optionally clear the label
     showNoVideoFeed();
     qDebug() << "Video feed stopped";
+
+
+    // write json data
+
 }
 
 
 void HomeWindow::showNoVideoFeed()
 {
+    qDebug() << "loading image";
     cv::Mat img = cv::imread("/home/dhruvin/qt_projects/Internship_Project/no-camera-feed.jpg");
     QImage qimage(img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
     ui->label_6->setPixmap(QPixmap::fromImage(qimage));

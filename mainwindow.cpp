@@ -61,8 +61,6 @@ void MainWindow::loginButtonClicked(QString id, QString password) {
     header = new Header(this);
     home = new HomeWindow(this);
     this->setStyleSheet("background-color:white");
-    report = new Report(this);
-    report->hide();
     header->setAttribute(Qt::WA_StyledBackground, true);
     header->enbleHomeButton(false);
 
@@ -78,57 +76,17 @@ void MainWindow::loginButtonClicked(QString id, QString password) {
     loginwindow->deleteLater();
 }
 
-
-//void MainWindow::loginButtonClicked(QString id, QString password){
-
-//        // ID Validation
-//        if (id.isEmpty()) {
-//            QMessageBox::warning(this, "Input Error", "ID field cannot be empty.");
-//            return;
-//        }
-//        // Password Validation
-//        if (password.isEmpty()) {
-//            QMessageBox::warning(this, "Input Error", "Password field cannot be empty.");
-//            return;
-//        }
-//        if (id != "abc123") {
-//            QMessageBox::warning(this, "Input Error", "ID must contain only letters and numbers.");
-//            return;
-//        }
-//        if (password != "abc@2023") {
-//            QMessageBox::warning(this, "Input Error", "Password must be at least 9 characters long and include one lowercase, one uppercase, one number, and one special character (!@&%#$^*).");
-//            return;
-//        }
-
-
-//        else{
-//            verticalLayout = new QVBoxLayout(this);
-//            header = new Header(this);
-//            home = new HomeWindow(this);
-//            this->setStyleSheet("background-color:white");
-//            report = new Report(this);
-//            report->hide();
-//            header->setAttribute(Qt::WA_StyledBackground, true);
-//            header->enbleHomeButton(false);
-
-//            verticalLayout->addWidget(header);
-//            verticalLayout->addWidget(home);
-//            ui->horizontalLayout->addLayout(verticalLayout);
-
-//            connect(header, &Header::logoutButtonClickedSignal, this, &MainWindow::logoutButtonClicked);
-//            connect(header, &Header::closeButtonClickedSignal, this, &MainWindow::closeButtonClicked);
-//            connect(header, &Header::reportButtonClickedSignal, this, &MainWindow::reportButtonClicked);
-//            connect(header, &Header::homeButtonClickedSignal, this, &MainWindow::homeButtonClicked);
-//        }
-//    loginwindow->deleteLater();
-//}
-
-
 void MainWindow::logoutButtonClicked(){
 //    if (header) header->deleteLater();
-    header->hide();
-    report->hide();
-    home->hide();
+    header->deleteLater();
+    if(report != nullptr){
+        report->deleteLater();
+    }
+    report = nullptr;
+    if(home != nullptr){
+        home->deleteLater();
+    }
+    home = nullptr;
     loginwindow = new LoginWindow(this);
     ui->horizontalLayout->addWidget(loginwindow);
     loginwindow->setStyleSheet("#verticalWidget{Border:2px solid rgb(23, 21, 59)}");
@@ -138,8 +96,11 @@ void MainWindow::logoutButtonClicked(){
 
 }
 void MainWindow::homeButtonClicked(){
-    home->show();
-    report->hide();
+//    home->show();
+    home = new HomeWindow(this);
+//    report->hide();
+        delete report;
+    report = nullptr;
     verticalLayout->addWidget(home);
     header->enbleHomeButton(false);
     header->enbleReportButton(true);
@@ -150,9 +111,14 @@ void MainWindow::closeButtonClicked(){
 }
 
 void MainWindow::reportButtonClicked(){
-    report->show();
+    report = new Report(this);
+        delete home;
+    home = nullptr;
+
+//    report->show();
     report->fetchSessionData();
-    home->hide();
+//    report->setPieChart();
+//    home->hide();
     verticalLayout->addWidget(report);
     header->enbleHomeButton(true);
     header->enbleReportButton(false);
@@ -162,7 +128,11 @@ MainWindow::~MainWindow()
 {
     delete ui;
     header->deleteLater();
-    report->deleteLater();
-    home->deleteLater();
+    if(report != nullptr){
+        report->deleteLater();
+    }
+    if(home != nullptr){
+        home->deleteLater();
+    }
     qDebug()<<"main destructor";
 }

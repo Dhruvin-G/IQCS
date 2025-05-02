@@ -31,9 +31,9 @@ private:
     Ui::MainWindow *ui;
     QVBoxLayout *verticalLayout;
     LoginWindow *loginwindow;
-    Header *header;
-    Report *report;
-    HomeWindow *home;
+    Header *header = nullptr;
+    Report *report = nullptr;
+    HomeWindow *home = nullptr;
 
 };
 #endif // MAINWINDOW_H

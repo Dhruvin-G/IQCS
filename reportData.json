@@ -221,6 +221,14 @@
             }
         }
     ],
+    "03-05-2025": [
+        {
+            "1": {
+                "Defected": 17,
+                "Undefected": 17
+            }
+        }
+    ],
     "04-04-2025": [
         {
             "1": {
@@ -292,6 +300,32 @@
             "12": {
                 "Defected": 16,
                 "Undefected": 16
+            }
+        }
+    ],
+    "04-05-2025": [
+        {
+            "1": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "2": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "3": {
+                "Defected": 30,
+                "Undefected": 46
+            }
+        },
+        {
+            "4": {
+                "Defected": 0,
+                "Undefected": 0
             }
         }
     ],
@@ -369,6 +403,86 @@
             }
         }
     ],
+    "05-05-2025": [
+        {
+            "1": {
+                "Defected": 23,
+                "Undefected": 59
+            }
+        },
+        {
+            "2": {
+                "Defected": 3,
+                "Undefected": 46
+            }
+        },
+        {
+            "3": {
+                "Defected": 27,
+                "Undefected": 42
+            }
+        },
+        {
+            "4": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "5": {
+                "Defected": 2,
+                "Undefected": 0
+            }
+        },
+        {
+            "6": {
+                "Defected": 30,
+                "Undefected": 60
+            }
+        },
+        {
+            "7": {
+                "Defected": 14,
+                "Undefected": 21
+            }
+        },
+        {
+            "8": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "9": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "10": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        },
+        {
+            "11": {
+                "Defected": 77,
+                "Undefected": 0
+            }
+        },
+        {
+            "12": {
+                "Defected": 75,
+                "Undefected": 0
+            }
+        },
+        {
+            "13": {
+                "Defected": 0,
+                "Undefected": 0
+            }
+        }
+    ],
     "06-04-2025": [
         {
             "1": {
@@ -440,6 +554,26 @@
             "12": {
                 "Defected": 30,
                 "Undefected": 22
+            }
+        }
+    ],
+    "06-05-2025": [
+        {
+            "1": {
+                "Defected": 5,
+                "Undefected": 10
+            }
+        },
+        {
+            "2": {
+                "Defected": 12,
+                "Undefected": 226
+            }
+        },
+        {
+            "3": {
+                "Defected": 29,
+                "Undefected": 111
             }
         }
     ],
@@ -1846,38 +1980,6 @@
             "12": {
                 "Defected": 31,
                 "Undefected": 16
-            }
-        }
-    ],
-    "26-04-2025": [
-        {
-            "1": {
-                "Defected": 39,
-                "Undefected": 32
-            }
-        },
-        {
-            "2": {
-                "Defected": 30,
-                "Undefected": 40
-            }
-        },
-        {
-            "3": {
-                "Defected": 16,
-                "Undefected": 15
-            }
-        },
-        {
-            "4": {
-                "Defected": 23,
-                "Undefected": 18
-            }
-        },
-        {
-            "5": {
-                "Defected": 20,
-                "Undefected": 19
             }
         }
     ]

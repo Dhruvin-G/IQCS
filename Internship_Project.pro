@@ -23,6 +23,7 @@ LIBS += -L/usr/local/lib \
         -lopencv_imgproc \
         -lopencv_highgui \
         -lopencv_imgcodecs \
+        -lopencv_dnn \
         -lopencv_videoio
 
 
@@ -33,6 +34,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     homewindow.cpp \
+    pdfreportgenerator.cpp \
     report.cpp
 
 HEADERS += \
@@ -41,6 +43,7 @@ HEADERS += \
     loginwindow.h \
     homewindow.h \
     mainwindow.h \
+    pdfreportgenerator.h \
     report.h \
     json.hpp
 

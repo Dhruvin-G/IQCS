@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <thread>
+#include <fstream>
 
 #include <opencv2/opencv.hpp>
 #include <nlohmann/json.hpp>
@@ -43,6 +44,13 @@ private:
 
     int m_defectedCount = 0;
     int m_undefectedCount = 0;
+
+    cv::dnn::Net m_net;
+    std::vector<std::string> m_classNames;
+
+
+    void loadYoloModel();
+    void processDetections(const std::vector<cv::Mat>& outputs, const cv::Mat& frame);
 };
 
 #endif // HOMEWINDOW_H

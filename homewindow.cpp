@@ -14,6 +14,7 @@ HomeWindow::HomeWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     showNoVideoFeed();
+    loadYoloModel();
 }
 
 
@@ -22,6 +23,7 @@ HomeWindow::~HomeWindow()
 {
     delete ui;
 }
+
 
 void HomeWindow::startVideoFeed()
 {
@@ -46,23 +48,46 @@ void HomeWindow::startVideoFeed()
                 continue;
             }
 
+            // ---- YOLOv4 Object Detection ----
+            cv::Mat blob;
+            cv::dnn::blobFromImage(frame, blob, 1/255.0, cv::Size(416, 416), cv::Scalar(), true, false);
+            m_net.setInput(blob);
 
-            // Image Detection
-            // Simulate detection
-            int mockClassId = rand() % 2;
-            float mockConfidence = static_cast<float>(rand()) / RAND_MAX;
+            std::vector<cv::Mat> outputs;
+            m_net.forward(outputs, m_net.getUnconnectedOutLayersNames());
 
-            if (mockConfidence > 0.6f) {
-                if (mockClassId == 0){
+            bool detected = false;
+            int classId = -1;
+            float confidence = 0;
+
+            for (const auto& output : outputs) {
+                for (int i = 0; i < output.rows; ++i) {
+                    const float* data = output.ptr<float>(i);
+                    float score = data[4];
+                    if (score > 0.5f) {
+                        cv::Mat scores = output.row(i).colRange(5, output.cols);
+                        cv::Point classIdPoint;
+                        double maxClassScore;
+                        cv::minMaxLoc(scores, 0, &maxClassScore, 0, &classIdPoint);
+                        if (maxClassScore > 0.6f) {
+                            detected = true;
+                            classId = classIdPoint.x;
+                            confidence = static_cast<float>(maxClassScore);
+                            break;
+                        }
+                    }
+                }
+                if (detected) break;
+            }
+
+            if (detected) {
+                if (classId == 0) {
                     m_defectedCount++;
                     ui->label_5->setText("Fail");
-
-                }
-                else{
+                } else {
                     m_undefectedCount++;
                     ui->label_5->setText("Pass");
                 }
-
             }
 
             // Convert BGR to RGB
@@ -85,7 +110,7 @@ void HomeWindow::startVideoFeed()
 //                ui->labelDefected->setText(QString::number(defectedCount));
             }, Qt::QueuedConnection);
 
-//            std::this_thread::sleep_for(std::chrono::milliseconds(300));  // ~33 FPS
+//            std::this_thread::sleep_for(std::chrono::milliseconds(100));  // ~33 FPS
         }
 
         qDebug() << "Capture thread exited";
@@ -182,4 +207,77 @@ void HomeWindow::on_pushButton_clicked()
 void HomeWindow::on_pushButton_2_clicked()
 {
     stopVideoFeed();
+}
+
+void HomeWindow::loadYoloModel()
+{
+    const std::string modelConfig = "model/yolov4.cfg";
+    const std::string modelWeights = "model/yolov4_last.weights";
+    const std::string classFile = "model/model.names";
+
+    // Load class names
+    std::ifstream ifs(classFile);
+    std::string line;
+    while (std::getline(ifs, line)) {
+        m_classNames.push_back(line);
+    }
+
+    // Load the network
+    m_net = cv::dnn::readNetFromDarknet(modelConfig, modelWeights);
+    qDebug() << "Model loadded successfully";
+    m_net.setPreferableBackend(cv::dnn::DNN_BACKEND_OPENCV);
+    m_net.setPreferableTarget(cv::dnn::DNN_TARGET_CPU);
+}
+
+void HomeWindow::processDetections(const std::vector<cv::Mat>& outputs, const cv::Mat& frame)
+{
+    float confThreshold = 0.5;
+    std::vector<int> classIds;
+    std::vector<float> confidences;
+    std::vector<cv::Rect> boxes;
+
+    for (const auto& output : outputs) {
+        for (int i = 0; i < output.rows; ++i) {
+            const auto* data = output.ptr<float>(i);
+            float score = data[4];
+            if (score > confThreshold) {
+                cv::Mat scores = output.row(i).colRange(5, output.cols);
+                cv::Point classIdPoint;
+                double confidence;
+
+                cv::minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
+                if (confidence > confThreshold) {
+                    int centerX = static_cast<int>(data[0] * frame.cols);
+                    int centerY = static_cast<int>(data[1] * frame.rows);
+                    int width = static_cast<int>(data[2] * frame.cols);
+                    int height = static_cast<int>(data[3] * frame.rows);
+                    int left = centerX - width / 2;
+                    int top = centerY - height / 2;
+
+                    classIds.push_back(classIdPoint.x);
+                    confidences.push_back(static_cast<float>(confidence));
+                    boxes.emplace_back(left, top, width, height);
+                }
+            }
+        }
+    }
+
+    // Perform NMS
+    std::vector<int> indices;
+    cv::dnn::NMSBoxes(boxes, confidences, confThreshold, 0.4, indices);
+
+    for (int idx : indices) {
+        const auto& box = boxes[idx];
+        const auto& label = m_classNames[classIds[idx]];
+
+        // Only interested in custom classes: "defected" / "undefected"
+        if (label == "defected")
+            ++m_defectedCount;
+        else if (label == "undefected")
+            ++m_undefectedCount;
+
+        cv::rectangle(frame, box, cv::Scalar(0, 255, 0), 2);
+        cv::putText(frame, label, cv::Point(box.x, box.y - 10),
+                    cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 255, 0), 1);
+    }
 }

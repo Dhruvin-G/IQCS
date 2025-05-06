@@ -4,6 +4,7 @@
 #include<hpdf.h>
 
 #include "jsonhandler.h"
+#include "pdfreportgenerator.h"
 
 Report::Report(QWidget *parent)
     : QWidget(parent)
@@ -49,7 +50,6 @@ void Report::on_exportPDFButtonClicked(){
 
 //           // Save the PDF
 //           HPDF_SaveToFile(pdf, filename);
-           QMessageBox::information(this, "Success", "PDF exported successfully!");
 
 //       } catch (...) {
 //           HPDF_Free(pdf);
@@ -58,6 +58,15 @@ void Report::on_exportPDFButtonClicked(){
 //       }
 
 //       HPDF_Free(pdf);
+    PDFReportGenerator generator("/home/dhruvin/qt_projects/IQCS/reportData.json");
+    if (generator.generatePDF("output/report.pdf")) {
+        qDebug() << "PDF generated successfully.";
+        QMessageBox::information(this, "Success", "PDF exported successfully!");
+    } else {
+        qDebug() << "Failed to generate PDF.";
+        QMessageBox::information(this, "Failure", "Failed to export PDF!");
+    }
+
 }
 
 
